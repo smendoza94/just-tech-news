@@ -1,0 +1,27 @@
+{
+  "name": "just-tech-news",
+  "version": "1.0.0",
+  "description": "News-based site with a coding theme that lists out popular user repos with a voting and comment system, a reddit mimic",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smendoza94/just-tech-news.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smendoza94/just-tech-news/issues"
+  },
+  "homepage": "https://github.com/smendoza94/just-tech-news#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
+  }
+}
