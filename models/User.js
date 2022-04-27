@@ -1,5 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require('sequelize'); // db functions and constructors
+const sequelize = require('../config/connection'); // connection to db
+const bcrypt = require('bcrypt'); // encrypt passwords npm
+const { update } = require('lodash');
 // STEP: 1 USER MODEL WILL DETERMINE THE TYPE OF DATA IN THE TABLE
 
 // create our User model
@@ -35,6 +37,18 @@ User.init(
     }
   },
   { // table configuration options (https://sequelize.org/v5/manual/models-definition.html#configuration)
+    hooks: { // hooks are functions that are called before or after calls in Sequelize
+      // set up beforeCreate lifecycle "hook" functionality
+      async beforeCreate(newUserData) {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      // set up beforeUpdate lifecycle "hook"
+      async beforeUpdate(updatedUserData) {
+        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        return updatedUserData;
+      }
+    },
     sequelize, // pass in our imported sequilize connection (direct connection to our db)
     timestaps: false, // don't automatically create createAt/updateAt timestamp fields
     freezeTableName: true, // don't pluralize name of database table
