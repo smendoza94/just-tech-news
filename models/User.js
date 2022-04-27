@@ -10,17 +10,17 @@ class User extends Model {}
 User.init(
   { // table column definitions
     id: { // define id column
-      type: DataType.INTEGER, // sequelize DataTypes object provides type of data
+      type: DataTypes.INTEGER, // sequelize DataTypes object provides type of data
       allowNull: false, // not null, id must be filled
       primaryKey: true, // set id to primary key
       autoIncrement: true // id is on auto increment
     },
     username: { // define a username column
-      type: DataType.STRING,
-      allowNull: false
+      type: DataTypes.STRING,
+      aallowNull: false
     },
     email: {
-      type: DataType.STRING, 
+      type: DataTypes.STRING, 
       allowNull: false,
       unique: true, // there cannot be any duplicate emails in this table
       validate: { // if allowNull is false, data validators optional
@@ -28,7 +28,7 @@ User.init(
       }
     },
     password: { // define password column
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [4]// password must be AT LEAST 4 characters long
