@@ -59,6 +59,13 @@ router.post('/login', (req, res) => {
     }
     // commented response so that data doesnt get displayed when logging in
     // res.json({user: dbUserData});
+    // verify password
+    const validPassword = dbUserData.checkPassword(req.body.password); // returns boolean after syncCompare()
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password' });
+      return;
+    }
+    res.json({ user: dbUserData, message: 'You are now logged in' });
   })
 })
 

@@ -1,11 +1,15 @@
 const { Model, DataTypes } = require('sequelize'); // db functions and constructors
 const sequelize = require('../config/connection'); // connection to db
 const bcrypt = require('bcrypt'); // encrypt passwords npm
-const { update } = require('lodash');
 // STEP: 1 USER MODEL WILL DETERMINE THE TYPE OF DATA IN THE TABLE
 
 // create our User model
-class User extends Model {}
+class User extends Model {
+  // set up method to run on instance data (per user) to check password
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
 
 // define table columns and configuration 
 User.init(
