@@ -47,6 +47,21 @@ router.post('/', (req, res) => {
   });
 });
 
+router.post('/login', (req, res) => {
+  // expects {email: 'steve@gmail.com, password: 'password'}
+  User.findOne({
+    where: { email: req.body.email }
+  })
+  .then(dbUserData => {
+    if (!dbUserData){
+      res.status(400).json({ message: 'No user with that email address'});
+      return;
+    }
+    // commented response so that data doesnt get displayed when logging in
+    // res.json({user: dbUserData});
+  })
+})
+
 // PUT /api/user/1, update a single user
 router.put('/:id', (req, res) => {
   // expects {username: 'Steve', email: 'steve@gmail.com', password: 'password'}
