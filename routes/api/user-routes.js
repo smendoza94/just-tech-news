@@ -47,6 +47,7 @@ router.post('/', (req, res) => {
   });
 });
 
+// login post and validation /api/user/login
 router.post('/login', (req, res) => {
   // expects {email: 'steve@gmail.com, password: 'password'}
   User.findOne({
