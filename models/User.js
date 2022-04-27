@@ -1,6 +1,5 @@
-const { Model, DataType } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-
 // STEP: 1 USER MODEL WILL DETERMINE THE TYPE OF DATA IN THE TABLE
 
 // create our User model
