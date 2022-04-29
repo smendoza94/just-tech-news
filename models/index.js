@@ -29,19 +29,19 @@ Post.belongsToMany(User, {
 
 // directly connection User to Vote and Posts to Vote
 Vote.belongsTo(User, {
-  foreignKey: "user_id"
+  foreignKey: 'user_id'
 });
 
 Vote.belongsTo(Post, {
-  foreignKey: "post_id"
+  foreignKey: 'post_id'
 });
 
 User.hasMany(Vote, {
-  foreignKey: "user_id"
+  foreignKey: 'user_id'
 });
 
 Post.hasMany(Vote, {
-  foreignKey: "post_id"
-})
+  foreignKey: 'post_id'
+});
 
 module.exports = { User, Post, Vote };
