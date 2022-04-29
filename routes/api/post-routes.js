@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../../config/connection'); // used to count votes in PUT votes
 const { Post, User, Vote } = require('../../models');
 
 // get all users posts
@@ -59,13 +60,33 @@ router.post('/', (req, res) => {
 
 // "vote" - update the user post to add a "vote", /api/posts/upvote
 // must be placed before the put /:id Express.js will think the word "upvote" is a valid parameter for /:id
+// PUT /api/posts/upvote
 router.put('/upvote', (req, res) => {
+  // create the vote
   Vote.create({
     user_id: req.body.user_id,
     post_id: req.body.post_id
   })
+  .then(() => {
+    // then find the post we just voted on
+    return Post.findOne({
+      where: { id: req.body.post_id },
+      attributes: [ 
+        'id',
+        'post_url',
+        'title',
+        'create_at',
+        // use raw MySQL aggregate function query to get a count of how many 
+        // votes the post has and return it under the name `vote_count`
+        [
+          sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+          'vote_count'
+        ]
+      ]
+    })
+  })  
   .then(dbPostData => res.json(dbPostData))
-  .catch(err => res.json(err));
+  .catch(err => {console.log(err); res.status(400).json(err)});
 });
 
 // update a post title
@@ -102,7 +123,5 @@ router.delete('/:id', (req, res) => {
     res.status(500).json(err);
   });
 });
-
-
 
 module.exports = router;
