@@ -1,10 +1,18 @@
 const express = require("express");
-const path = require("path");
 const routes = require("./routes");
 const sequelize = require("./config/connection");
 
+// express handlebars requirements
+const path = require("path");
+const exphbs = require("express-handlebars");
+const hbs = exphbs.create({});
+
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// handlebars template engine connect to express
+app.engine("handlebars", hbs.engine);
+app.set("view engine", "handlebars");
 
 // middleware to translate to use json data format
 app.use(express.json());
