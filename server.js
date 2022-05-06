@@ -33,5 +33,5 @@ app.use(routes);
 sequelize
   .sync({ force: true }) // force: true = DROP TABLE IF EXISTS
   .then(() => {
-    app.listen(PORT, () => console.log("Now listening..."));
+    app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}...`));
   });
