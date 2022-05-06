@@ -31,7 +31,7 @@ app.use(routes);
 // with the model definitions and associations. By forcing the sync method
 // to true, we will make the tables re-create if there are any association changes.
 sequelize
-  .sync({ force: true }) // force: true = DROP TABLE IF EXISTS
+  .sync({ force: false }) // force: true = DROP TABLE IF EXISTS
   .then(() => {
     app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}...`));
   });

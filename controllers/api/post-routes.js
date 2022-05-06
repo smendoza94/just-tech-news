@@ -5,7 +5,6 @@ const { Post, User, Vote, Comment } = require("../../models");
 // get all users posts /api/posts
 router.get("/", (req, res) => {
   Post.findAll({
-    // query config & show the number of votes the post has
     attributes: [
       "id",
       "post_url",
@@ -18,7 +17,6 @@ router.get("/", (req, res) => {
         "vote_count",
       ],
     ],
-    order: [["created_at", "DESC"]],
     include: [
       {
         model: Comment,
@@ -35,8 +33,14 @@ router.get("/", (req, res) => {
     ],
   })
     .then((dbPostData) => {
-      //pass a single post object to the homepage template
-      res.json(dbPostData);
+      // res.json(dbPostData);
+      // pass a single post object into the homepage template
+      // console.log(dbPostData[0]); // see how sequelize formats the data
+
+      // This will loop over and map each Sequelize object into a serialized version of itself,
+      // saving the results in a new posts array.
+      const posts = dbPostData.map((post) => post.get({ plain: true }));
+      res.render("homepage", { posts });
     })
     .catch((err) => {
       console.log(err);
