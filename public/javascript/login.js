@@ -40,7 +40,7 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      document.location.replace("/api/posts");
+      document.location.replace("/");
     } else {
       alert(response.statusText);
     }
