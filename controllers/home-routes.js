@@ -1,6 +1,7 @@
 // this file will contain all the user-facing routes such as "homepage" and "login"
 const router = require("express").Router();
 
+// homepage route request /
 router.get("/", (req, res) => {
   // use .render for handlebars
   res.render("homepage", {
@@ -14,6 +15,11 @@ router.get("/", (req, res) => {
       username: "text_user",
     },
   });
+});
+
+// login page /login
+router.get("/login", (req, res) => {
+  res.render("login");
 });
 
 module.exports = router;
