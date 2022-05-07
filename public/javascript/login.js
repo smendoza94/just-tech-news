@@ -15,7 +15,7 @@ async function signupFormHandler(event) {
       }),
       headers: { "Content-Type": "application/json" },
     });
-    if (response / ok) {
+    if (response.ok) {
       console.log("sucess");
     } else {
       alert(response.statusText);
@@ -40,7 +40,7 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/api/posts");
     } else {
       alert(response.statusText);
     }
