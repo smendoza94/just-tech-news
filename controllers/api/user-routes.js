@@ -148,4 +148,17 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// logout route /api/user/logout
+// destroying the session variables and resetting the cookie
+router.post("/logout", (req, res) => {
+  if (req.session.loggedIn) {
+    // use the destroy method to end the session cookie
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = router;
