@@ -3,6 +3,7 @@ const router = require("express").Router();
 
 // homepage route request /
 router.get("/", (req, res) => {
+  console.log(req.session);
   // use .render for handlebars
   res.render("homepage", {
     id: 1,
@@ -19,6 +20,10 @@ router.get("/", (req, res) => {
 
 // login page /login
 router.get("/login", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
   res.render("login");
 });
 
