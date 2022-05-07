@@ -7,12 +7,30 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
 
+// cookies and sessions requirements
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
+const sess = {
+  // this object gives the params for cookies
+  secret: "Super secret secret", // this should be stored in .env
+  cookie: {}, // to use cookies, declare "cookies: {},"
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // handlebars template engine connect to express
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
+
+// cookies and session connect to session, cookies, and use db
+app.use(session(sess));
 
 // middleware to translate to use json data format
 app.use(express.json());
