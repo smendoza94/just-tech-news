@@ -13,3 +13,19 @@
     <button type="submit" class="btn">Create</button>
   </form>
 </section>
+{{!-- for the # of objects in the array --}}
+{{#if posts.length}}
+<section>
+  <h2>Your Posts</h2>
+  <ol>
+    {{!-- iterate through posts array containing objects post from .get FindAll() --}}
+    {{#each posts as |post|}}
+    <li>
+      {{!-- use post info partial to display formatted post object --}}
+      {{> post-info post}}
+      <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit Post</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
