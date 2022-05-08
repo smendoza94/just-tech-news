@@ -2,21 +2,9 @@
   {{! loop through the posts array to get each post and display it below }}
   {{#each posts as |post|}}
     <li>
-      <article class="post">
-        <div class="title">
-          <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
-          <span>{{post.post_url}}</span>
-        </div>
-        <div class="meta">
-          {{post.vote_count}}
-          point(s) by
-          {{post.user.username}}
-          on
-          {{post.created_at}}
-          |
-          <a href="/post/{{id}}"> {{post.comments.length}} comments(s) </a>
-        </div>
-      </article>
+      {{!-- use the post-info partial here to repeat the info layout --}}
+      {{!-- partial declared as {{> }}, then the file name and object to be passed in --}}
+      {{> post-info post }}
     </li>
     {{! close the posts loop array }}
   {{/each}}
