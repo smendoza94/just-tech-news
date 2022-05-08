@@ -1,10 +1,12 @@
 const router = require("express").Router();
 const sequelize = require("../config/connection");
 const { Post, User, Comment } = require("../models");
+const withAuth = require("../utils/auth");
 
+// autheticate that users are logged into to show dashboard info
 // display all logged in user's post on /dashboard and
 // display the dashboard page at /dashboard, only when logged in
-router.get("/", (req, res) => {
+router.get("/", withAuth, (req, res) => {
   Post.findAll({
     where: {
       // use the ID from the session

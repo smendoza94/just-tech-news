@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Post, Vote, Comment } = require("../../models");
+const withAuth = require("../../utils/auth");
 
 // GET /api/users, display
 router.get("/", (req, res) => {
@@ -54,7 +55,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST /api/users, create a new user
-router.post("/", (req, res) => {
+router.post("/", withAuth, (req, res) => {
   // expects {username: 'Steve', email: 'steve@gmail.com', password: 'password'}
   User.create({
     username: req.body.username,
@@ -77,7 +78,7 @@ router.post("/", (req, res) => {
 });
 
 // login post and validation /api/user/login
-router.post("/login", (req, res) => {
+router.post("/login", withAuth, (req, res) => {
   // expects {email: 'steve@gmail.com, password: 'password'}
   User.findOne({
     where: { email: req.body.email },
@@ -108,7 +109,7 @@ router.post("/login", (req, res) => {
 });
 
 // PUT /api/user/1, update a single user
-router.put("/:id", (req, res) => {
+router.put("/:id", withAuth, (req, res) => {
   // expects {username: 'Steve', email: 'steve@gmail.com', password: 'password'}
 
   // if req.body has exact key/value pairs to match the model,
@@ -131,7 +132,7 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE /api/user/1, remove a single user
-router.delete("/:id", (req, res) => {
+router.delete("/:id", withAuth, (req, res) => {
   User.destroy({
     where: { id: req.params.id },
   })
@@ -150,7 +151,7 @@ router.delete("/:id", (req, res) => {
 
 // logout route /api/user/logout
 // destroying the session variables and resetting the cookie
-router.post("/logout", (req, res) => {
+router.post("/logout", withAuth, (req, res) => {
   if (req.session.loggedIn) {
     // use the destroy method to end the session cookie
     req.session.destroy(() => {
