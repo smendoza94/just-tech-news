@@ -8,12 +8,15 @@
   </div>
   <div class="meta">
     {{vote_count}}
-    point(s) by
+    {{! replace "point(s)" with format_plural that takes in "point" string and makes it plural if vote_count > 1 }}
+    {{format_plural "point" vote_count}}
+    by
     {{user.username}}
     on
     {{! call the function format_date from the server.js exphbs.create to format created_at }}
     {{format_date created_at}}
     |
-    <a href="/post/{{id}}">{{comments.length}} comment(s)</a>
+    <a href="/post/{{id}}">{{comments.length}}
+      {{format_plural "comment" comments.length}}</a>
   </div>
 </article>
