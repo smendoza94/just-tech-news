@@ -19,3 +19,13 @@
     <button type="button" class="delete-post-btn">Delete post</button>
   </form>
 </article>
+{{! display add comment form }}
+<form class="comment-form">
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+  <div>
+    <button type="submit">add comment</button>
+  </div>
+</form>
+{{> comments post}}
