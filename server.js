@@ -2,10 +2,14 @@ const express = require("express");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 
+// helper functions for formatting dates, plural words, and url lengths
+const helpers = require("./utils/helpers");
+
 // express handlebars requirements
 const path = require("path");
 const exphbs = require("express-handlebars");
-const hbs = exphbs.create({});
+// pass the helpers js file into exphbs.create for use in handlebars templates
+const hbs = exphbs.create({ helpers });
 
 // cookies and sessions requirements
 const session = require("express-session");
