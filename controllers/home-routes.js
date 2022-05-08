@@ -55,7 +55,10 @@ router.get("/", (req, res) => {
       // This will loop over and map each Sequelize object into a serialized version of itself,
       // saving the results in a new posts array.
       const posts = dbPostData.map((post) => post.get({ plain: true }));
-      res.render("homepage", { posts });
+      res.render("homepage", {
+        posts,
+        loggedIn: req.session.loggedIn, // pass this var to views to hide sections
+      });
     })
     .catch((err) => {
       console.log(err);
