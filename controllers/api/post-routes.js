@@ -111,13 +111,27 @@ router.post("/", (req, res) => {
 // must be placed before the put /:id Express.js will think the word "upvote" is a valid parameter for /:id
 // PUT /api/posts/upvote
 router.put("/upvote", (req, res) => {
-  // custom static method create in models/Post.js
-  Post.upvote(req.body, { Vote })
-    .then((dbPostData) => res.json(dbPostData))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  // make sure the session exists first a.k.a. the user is logged in
+  if (req.session) {
+    // pass session if along with all deconstructed properties on req.body
+    // custom static method create in models/Post.js
+    Post.upvote(
+      {
+        ...req.body,
+        user_id: req.session.user_id,
+      },
+      {
+        Vote,
+        Comment,
+        User,
+      }
+    )
+      .then((updatedVoteData) => res.json(updatedVoteData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
 });
 
 // update a post title /api/posts
